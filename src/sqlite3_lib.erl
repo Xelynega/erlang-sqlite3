@@ -376,6 +376,8 @@ table_constraint_sql(TableConstraint) ->
         {unique, Columns} ->
             ["UNIQUE(",
              map_intersperse(fun indexed_column_sql/1, Columns, ", "), ")"];
+        {check, Text} ->
+            ["CHECK(", Text, ")"];
         {foreign_key, {Columns, Parent, ParentColumns, Action}} ->
             ["FOREIGN KEY(",
              map_intersperse(fun indexed_column_sql/1, Columns, ", "),
